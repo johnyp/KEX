@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kravspecifikation1;
+package testcsv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 /**
@@ -14,7 +15,9 @@ import java.util.Scanner;
  * @author johny_000
  */
 public class MatchaLeveranser {
-
+    public static boolean Volym;
+    public static boolean Temp;
+    public static boolean Matchar;
     public static void main(String[] args) {
 
         String fileNamePejl = "pejl.csv";
@@ -43,7 +46,10 @@ public class MatchaLeveranser {
                     String lagerVarukodP = (Pejlvalues[3]);
                     String startTidP = (Pejlvalues[4]);
                     String stopTidP = (Pejlvalues[5]);
-                    int leveransVolymP = Integer.parseInt(Pejlvalues[6]);
+                    int StartVolymP = Integer.parseInt(Pejlvalues[6]);
+                    int SlutVolymP = Integer.parseInt(Pejlvalues[7]);
+                    double temperaturPstart = Double.parseDouble(Pejlvalues[8]);
+                    String temperaturPslut = (Pejlvalues[9]);
                     
                     int datumH = Integer.parseInt(Hoyervalues[0]);
                     int anläggningsIDH = Integer.parseInt(Hoyervalues[1]);
@@ -52,6 +58,28 @@ public class MatchaLeveranser {
                     String startTidH = (Hoyervalues[4]);
                     String stopTidH = (Hoyervalues[5]);
                     int leveransVolymH = Integer.parseInt(Hoyervalues[6]);
+                    double temperaturH = Double.parseDouble(Hoyervalues[7]);
+                    
+            /*        DecimalFormat formater = new DecimalFormat("#.###"); 
+System.out.println(formater.format(0.1));  */
+                    
+                    Double a = (((StartVolymP * temperaturPstart)+(leveransVolymH*temperaturH)) / (StartVolymP+leveransVolymH));
+                    System.out.println(a);
+                    DecimalFormat formater = new DecimalFormat("0.0");      
+                    System.out.println(formater.format(a));                 
+                    //Beräkna om volymen stämmer
+                    
+                    if(SlutVolymP - StartVolymP == leveransVolymH ){
+                    Volym = true;
+                            }
+                    
+                    if(formater.format(a).equals(temperaturPslut)){
+                    Temp = true;
+                    }
+                    //tempPstart + tempH = tempSlut
+                    //startvolym * starttemp + leveransvolym * leveranstemp / totalvolym (startvolym+leveransvolym). 
+                    
+                    
                     
                     if (datumP == datumH) {
                         if (anläggningsIDP == anläggningsIDH) {
@@ -59,8 +87,10 @@ public class MatchaLeveranser {
                                 if (lagerVarukodP.equals(lagerVarukodH)) {
                                     if (startTidP.equals(startTidH)) {
                                         if (stopTidP.equals(stopTidH)) {
-                                            if (leveransVolymP == leveransVolymH) {
-                                                System.out.println("matchar");
+                                            if (Volym) {
+                                                System.out.println("matchar i voylm");
+                                                Matchar = true;
+                                                System.exit(0);
                                             }
                                         }
                                     }
@@ -69,10 +99,18 @@ public class MatchaLeveranser {
                             }
                         }
                     }
+                    
+                   if(Temp){
+                   System.out.println("matchar i temp");
+                   Matchar = true;
+                   System.exit(0);
+                   }
+                    
                     System.out.println("matchar inte");
                 }
             } //ignore
             inputStreamHoyer.close();
+            System.exit(0);
         } catch (FileNotFoundException e) {
         }
     }

@@ -1,0 +1,1 @@
+Datum;AnläggningsID;CisternGrupp;Lagervarukod;StartTid;StopTid;LeveransVolym;Temperatur;
