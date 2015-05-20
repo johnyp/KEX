@@ -23,6 +23,10 @@ public class Dödvolym {
     public static double temp2 = 99999;
     public static double temp3 = 99999;
     public static double temp4 = 99999;
+    public static String datum1;
+    public static String datum2;
+    public static String datum3;
+    public static String datum4;
     public static void main(String[] args) {
 
         String fileNameNivaer = "nivaer.csv";
@@ -53,30 +57,33 @@ public class Dödvolym {
                    //Gör nivå till double
                    double volymNivaerDouble = Double.parseDouble(volymNivaer);
 
-                if(cisternGruppNivaer == 4 && volymNivaerDouble < temp4){ //&& volymnivå - x
-                   
+                if(cisternGruppNivaer == 4 && volymNivaerDouble <= temp4){ //&& volymnivå - x
+                   datum4 = datumNivaer;
                    temp4 = volymNivaerDouble;
                    //System.out.println(datumNivaer +" Cisterngrupp: "+cisternGruppNivaer+" Lägsta volym: "+temp4 );
                 }
                 
-                if(cisternGruppNivaer == 3 && volymNivaerDouble < temp3){
+                if(cisternGruppNivaer == 3 && volymNivaerDouble <= temp3){
+                 datum3 = datumNivaer;
                  temp3 = volymNivaerDouble;
                  //System.out.println(datumNivaer +" Cisterngrupp: "+cisternGruppNivaer+" Lägsta volym: "+temp3 );
                 }
-                if(cisternGruppNivaer == 2){
+                if(cisternGruppNivaer == 2 && volymNivaerDouble <= temp2){
+                 datum2 = datumNivaer;
                  temp2 = volymNivaerDouble;
                  //System.out.println(datumNivaer +" Cisterngrupp: "+cisternGruppNivaer+" Lägsta volym: "+temp2 );
                 } 
-                if(cisternGruppNivaer == 1 && volymNivaerDouble < temp1){
+                if(cisternGruppNivaer == 1 && volymNivaerDouble <= temp1){
+                 datum1 = datumNivaer;
                  temp1 = volymNivaerDouble;
                  //System.out.println(datumNivaer +" Cisterngrupp: "+cisternGruppNivaer+" Lägsta volym: "+temp1 );
                 }
                 
                 }
-                System.out.println("Lägsta volym för cisterngrupp 4 ||" + temp4+"||");
-                System.out.println("Lägsta volym för cisterngrupp 3 ||" + temp3+"||");
-                System.out.println("Lägsta volym för cisterngrupp 2 ||" + temp2+"||");
-                System.out.println("Lägsta volym för cisterngrupp 1 ||" + temp1+"||");
+                System.out.println("Lägsta volym för cisterngrupp 4 ||" + temp4+"||" + datum4);
+                System.out.println("Lägsta volym för cisterngrupp 3 ||" + temp3+"||" + datum3);
+                System.out.println("Lägsta volym för cisterngrupp 2 ||" + temp2+"||" + datum2);
+                System.out.println("Lägsta volym för cisterngrupp 1 ||" + temp1+"||" + datum1);
             } //ignore
             inputStreamNivaer.close();
             System.exit(0);
